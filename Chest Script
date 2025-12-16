@@ -9,14 +9,15 @@ local function teleportTo(target)
 		hrp.CFrame = target.CFrame + Vector3.new(0, 5, 0)
 	elseif target:IsA("Model") and target.PrimaryPart then
 		hrp.CFrame = target.PrimaryPart.CFrame + Vector3.new(0, 5, 0)
+    end
 end
 
 local Window = Rayfield:CreateWindow({
    Name = "Chaos Hub",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "Rayfield Interface Suite",
+   LoadingTitle = "Chaos Hub, the inovation.",
    LoadingSubtitle = "by Chaos_Utmm",
-   ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+   ShowText = "Chaos Power.", -- for mobile users to unhide rayfield, change if you'd like
    Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
@@ -50,11 +51,14 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Chest Spawns", 0)
 
+local count = 0 -- Inicializa um contador
+
 for _, spawns in ipairs(workspace.ChestSpawns:GetChildren()) do
+    count = count + 1 -- Incrementa o contador para cada spawn
     local Button = Tab:CreateButton({
-   Name = spawns.Name,
-   Callback = function()
-      teleportTo(spawns)
-   end,
-})
+        Name = "Teleport to Chest Spawn: "..count, -- Exibe o número do spawn em vez do nome
+        Callback = function()
+            teleportTo(spawns)
+        end,
+    })
 end
